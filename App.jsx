@@ -1,27 +1,13 @@
 import React from 'react'
-import AddProduct from './AddProduct'
-import EditProduct from './EditProduct'
-import ViewProduct from './viewProduct'
-import axios from 'axios'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-
-const router=createBrowserRouter([
-  {
-    path:'/',
-    element:<ViewProduct/>
-  },
-  {
-    path:'/editProduct/:id',
-    element:<EditProduct/>
-  },
-  {
-    path:'/addProduct',
-    element:<AddProduct/>
-  }
-])
-
-
-
-export default function App(){
-  return <RouterProvider router={router} />
+import userContext from './UserContext'
+import Profile from './Profile'
+function App() {
+  const value="suhas"
+  return (
+    <userContext.Provider value="suhas">
+      <Profile/>
+    </userContext.Provider>
+  )
 }
+
+export default App
