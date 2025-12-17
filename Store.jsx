@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer, { increase } from './CounterSlice'
+import todoReducer from './counterSlice'
+import { configureStore } from '@reduxjs/toolkit'
 
-const store=configureStore({
+const Store=configureStore({
     reducer:{
-        counter:counterReducer
+        todos:todoReducer
     }
 })
-export default store
+export default Store

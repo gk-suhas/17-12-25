@@ -1,17 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchTodos=createAsyncThunk(
+    "todos/fetchTodos",
+    async()=>{
+        let result=await fetch("https://jsonplaceholder.typicode.com/todos")
+        let data=await result.json()
+        return data
+    }
+)
 
 const initialState={
-    value:0
+    todos:[],
+    status:"idle",
+    error:null
 }
 
-const counterSlice=createSlice({
-    name:"counter",
+const todoSlice=createSlice({
+    name:"todos",
     initialState,
-    reducers:{
-        "increase":(state)=>{state.value+=1},
-        "decrease":(state)=>{state.value-=1},
-        "reset":(state)=>{state.value=0}
+    reducers:{},
+    extraReducers:(builder)=>{
+        builder.addCase(fetchTodos.pending,(state)=>{
+            state.status="loading"
+        })
+        
+        .addCase(fetchTodos.rejected,(state,action)=>{
+            state.status="failed"
+            state.error=action.error.message
+        })
     }
 })
-export const {increase,decrease,reset}=counterSlice.actions
-export default counterSlice.reducer
+export default todoSlice.reducer
